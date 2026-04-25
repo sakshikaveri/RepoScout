@@ -15,7 +15,7 @@ import java.util.List;
 @Component
 public class GithubClient {
 
-    @Value("${github.token:}")  // the :  means it's optional — empty string if not set
+    @Value("${github.token:}")
     private String githubToken;
 
     private final RestTemplate restTemplate = new RestTemplate();
@@ -25,14 +25,13 @@ public class GithubClient {
                                                      String language,
                                                      String sort) {
         try {
-            // Build the GitHub search query
-            // e.g. "spring boot language:Java"
+            // Building the earch query, for eg- "spring boot language:Java"
             String searchQuery = query;
             if (language != null && !language.isEmpty()) {
                 searchQuery += " language:" + language;
             }
 
-            // Default sort to stars if not provided
+            // Default sorting to stars
             String sortParam = (sort != null && !sort.isEmpty()) ? sort : "stars";
 
             String url = "https://api.github.com/search/repositories"
@@ -40,8 +39,7 @@ public class GithubClient {
                     + "&sort=" + sortParam
                     + "&per_page=30";  // fetch 30 results at a time
 
-            // Set headers — GitHub requires Accept header
-            // Adding token if available to avoid rate limits
+            // Set headers - GitHub requires Accept header
             HttpHeaders headers = new HttpHeaders();
             headers.set("Accept", "application/vnd.github.v3+json");
             if (githubToken != null && !githubToken.isEmpty()) {
@@ -53,7 +51,7 @@ public class GithubClient {
                     url, HttpMethod.GET, entity, String.class
             );
 
-            // Parse the response
+            // Parsing the response
             JsonNode root = objectMapper.readTree(response.getBody());
             JsonNode items = root.get("items");
 
@@ -70,7 +68,6 @@ public class GithubClient {
                 repo.setForks(item.path("forks_count").asInt());
                 repo.setHtmlUrl(item.path("html_url").asText());
 
-                // GitHub returns date like "2024-01-01T12:00:00Z"
                 String updatedAt = item.path("updated_at").asText();
                 if (updatedAt != null && !updatedAt.isEmpty()) {
                     repo.setLastUpdated(LocalDateTime.parse(

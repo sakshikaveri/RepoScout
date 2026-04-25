@@ -17,7 +17,7 @@ public class GithubController {
     @Autowired
     private GithubService githubService;
 
-    // API 1- Search GitHub and save results
+    // API 1- search GitHub and save results
     @PostMapping("/search")
     public ResponseEntity<?> searchRepositories(@RequestBody SearchRequest request) {
         try {
@@ -42,7 +42,7 @@ public class GithubController {
         }
     }
 
-    // API 2- Getting saved repositories with filters-optional
+    // API 2- getting saved repositories with optional filter
     @GetMapping("/repositories")
     public ResponseEntity<?> getRepositories(
             @RequestParam(required = false) String language,

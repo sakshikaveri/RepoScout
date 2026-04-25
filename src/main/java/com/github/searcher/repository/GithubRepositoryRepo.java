@@ -8,8 +8,7 @@ import java.util.List;
 
 public interface GithubRepositoryRepo extends JpaRepository<GithubRepository, Long> {
 
-    // Used for filtering — all params are optional
-    // We write custom JPQL query to handle optional filters cleanly
+    // Used for filtering - all params are optional
     @Query("SELECT r FROM GithubRepository r WHERE " +
             "(:language IS NULL OR r.language = :language) AND " +
             "(:minStars IS NULL OR r.stars >= :minStars) " +

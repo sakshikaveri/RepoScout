@@ -1,9 +1,9 @@
 package com.github.searcher.dto;
 
 public class SearchRequest {
-    private String query;      // e.g. "spring boot"
-    private String language;   // e.g. "Java"
-    private String sort;       // "stars", "forks", or "updated"
+    private String query;
+    private String language;
+    private String sort;
 
     public String getQuery() { return query; }
     public String getLanguage() { return language; }
