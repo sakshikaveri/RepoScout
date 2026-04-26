@@ -32,8 +32,9 @@ public class GithubClient {
             // Building the earch query, for eg- "spring boot language:Java"
             String searchQuery = query;
             if (language != null && !language.isEmpty()) {
-                // Capitalize first letter — GitHub needs "Python" not "python"
-                String formattedLanguage = language.substring(0, 1).toUpperCase() + language.substring(1).toLowerCase();
+                // Capitalize first letter only
+                String formattedLanguage = language.substring(0, 1).toUpperCase()
+                        + language.substring(1).toLowerCase();
                 searchQuery += " language:" + formattedLanguage;
             }
 

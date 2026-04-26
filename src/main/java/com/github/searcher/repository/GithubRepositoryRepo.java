@@ -15,12 +15,13 @@ public interface GithubRepositoryRepo extends JpaRepository<GithubRepository, Lo
 
     // Used for filtering - all params are optional
     @Query("SELECT r FROM GithubRepository r WHERE " +
-            "(:language IS NULL OR r.language = :language) AND " +
+            "(:language IS NULL OR LOWER(r.language) = LOWER(:language)) AND " +
             "(:minStars IS NULL OR r.stars >= :minStars) " +
             "ORDER BY " +
             "CASE WHEN :sort = 'forks' THEN r.forks END DESC, " +
             "CASE WHEN :sort = 'updated' THEN r.lastUpdated END DESC, " +
             "r.stars DESC")
+
     List<GithubRepository> findWithFilters(
             @Param("language") String language,
             @Param("minStars") Integer minStars,
