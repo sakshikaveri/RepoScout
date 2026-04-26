@@ -1,3 +1,9 @@
+
+/**
+ * Has two endpoints. POST /search accepts a request body with query/language/sort, validates it, and calls the service.
+ * GET /repositories accepts optional query params for filtering.
+ **/
+
 package com.github.searcher.controller;
 
 import com.github.searcher.dto.SearchRequest;
@@ -7,6 +13,7 @@ import com.github.searcher.service.GithubService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 import java.util.Map;
 

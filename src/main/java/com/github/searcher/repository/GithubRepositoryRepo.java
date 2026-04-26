@@ -1,3 +1,8 @@
+/**
+ * Has a custom JPQL query using findWithFilters().
+ * The query uses IS NULL checks so that if language or minStars is not provided, those filters are simply ignored.
+ */
+
 package com.github.searcher.repository;
 
 import com.github.searcher.model.GithubRepository;

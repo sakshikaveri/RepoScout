@@ -1,3 +1,8 @@
+/**
+ * Maps to github_repositories table.
+ * Uses GitHub's own numeric ID as primary key — this is the key design decision that enables upsert.
+ */
+
 package com.github.searcher.model;
 
 import jakarta.persistence.*;

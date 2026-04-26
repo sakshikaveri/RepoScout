@@ -1,3 +1,8 @@
+/**
+ * layer that connects the controller to the client and repository. For search: calls GithubClient then saves results.
+ * For retrieval: calls the repository with filters.
+ * **/
+
 package com.github.searcher.service;
 
 import com.github.searcher.client.GithubClient;
