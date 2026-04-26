@@ -13,6 +13,9 @@ import org.springframework.http.*;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -31,11 +34,17 @@ public class GithubClient {
         try {
             // Building the earch query, for eg- "spring boot language:Java"
             String searchQuery = query;
+            String languageFilter = "";
+
             if (language != null && !language.isEmpty()) {
-                // Capitalize first letter only
                 String formattedLanguage = language.substring(0, 1).toUpperCase()
-                        + language.substring(1).toLowerCase();
-                searchQuery += " language:" + formattedLanguage;
+                        + language.substring(1);
+                // encode only the language value to handle C++, C# etc
+                try {
+                    languageFilter = "+language:" + URLEncoder.encode(formattedLanguage, StandardCharsets.UTF_8);
+                } catch (Exception e) {
+                    languageFilter = "+language:" + formattedLanguage;
+                }
             }
 
             // Default sorting to stars
@@ -57,8 +66,13 @@ public class GithubClient {
                 }
             }
 
-            String url = "https://api.github.com/search/repositories" + "?q=" + searchQuery.replace(" ", "+") + "&sort=" + sortParam + "&per_page=30";
-            // Set headers - GitHub requires Accept header
+            String url = "https://api.github.com/search/repositories"
+                    + "?q=" + URLEncoder.encode(searchQuery, StandardCharsets.UTF_8)
+                    + languageFilter
+                    + "&sort=" + sortParam
+                    + "&per_page=30";
+
+            System.out.println("GitHub URL: " + url);
             HttpHeaders headers = new HttpHeaders();
             headers.set("Accept", "application/vnd.github.v3+json");
             if (githubToken != null && !githubToken.isEmpty()) {

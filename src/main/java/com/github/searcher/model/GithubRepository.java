@@ -19,7 +19,7 @@ public class GithubRepository {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "description", length = 1000)
+    @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
     @Column(name = "owner_name")
