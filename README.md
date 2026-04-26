@@ -1,25 +1,25 @@
 # GitHub Repository Searcher
 
 ## Overview
-Spring Boot REST API to search GitHub repositories and store results in MySQL.
+Spring Boot REST API to search GitHub repositories and store results in PostgreSQL.
 Supports filtering saved results by language, minimum stars, and sort order.
 Uses GitHub's repository ID as primary key — guarantees no duplicate entries (upsert on re-search).
 
 ## Tech Stack
 - Java 17, Spring Boot 3.2
-- Spring Data JPA + MySQL
+- Spring Data JPA + PostgreSQL
 - GitHub REST API v3
 
 ## Setup
 
 ### Prerequisites
 - Java 17+
-- MySQL running locally
+- PostgreSQL running locally
 - (Optional) GitHub Personal Access Token for higher rate limits
 
 ### Steps
 1. Create database: `CREATE DATABASE github_db;`
-2. Update `application.properties` with your MySQL credentials
+2. Update `application.properties` with your PostgreSQL credentials
 3. (Optional) Add your GitHub token to `application.properties`
 4. Run: `mvn spring-boot:run`
 
